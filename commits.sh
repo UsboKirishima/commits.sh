@@ -54,7 +54,8 @@ function writeFile() {
   i=0
   while true; do
     (echo "${i}" > ${FILE_PATH})
-    i = ${i+1}
+    i=${i+1}
+    (cd ${REPO_PATH})
     (git add .)
     (git commit -m "${COMMIT_NAME}")
     (git push)

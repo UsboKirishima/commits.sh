@@ -15,20 +15,23 @@
 ##########################################################################
 
 #Auth token
-TOKEN=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
+TOKEN=
 
 #Requests cooldown (seconds)
 COOLDOWN=5
 
 #Repo URL
-REPO_URL=https://github.com/xStaqed/HelloC
+REPO_URL=
 
+#Repo path (/tmp raccomended)
 REPO_PATH=/tmp/commitspam
 
 FOLDER="$( cd ${REPO_PATH} && pwd )"
 
+#Here the file name (.txt raccomended)
 FILE_PATH="${REPO_PATH}/test.txt"
 
+#Here the commit name
 COMMIT_NAME="ses"
 
 function cloneRepo() {
@@ -53,12 +56,12 @@ function createFile() {
 function writeFile() {
   i=0
   while true; do
-    (echo "${i}" > ${FILE_PATH})
-    i=${i+1}
-    (cd ${REPO_PATH})
-    (git add .)
-    (git commit -m "${COMMIT_NAME}")
-    (git push)
+    (< /dev/urandom tr -dc "[:alnum:]" | head -c1000 > ${FILE_PATH})
+    (i=${i+1})
+    (cd ${REPO_PATH} &&
+    git add . &&
+    git commit -m "${COMMIT_NAME}" &&
+    git push)
     (sleep ${COOLDOWN})
   done
 }
